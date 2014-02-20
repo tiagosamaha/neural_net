@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include "neuron.h"
 
 using namespace std;
 

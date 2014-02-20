@@ -7,7 +7,7 @@ class Neuron {
   private:
     int input_size;
     double *weights;
-    double activation;
+    double net;
     double output;
 
   public:
@@ -25,8 +25,8 @@ class Neuron {
       delete [] weights;
     }
     
-    void set_activation(double value) {
-      activation = value;
+    void set_net(double value) {
+      net = value;
     }
     
     void show_weights() {

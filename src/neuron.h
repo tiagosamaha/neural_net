@@ -14,7 +14,7 @@ class Neuron {
     Neuron() {};
     
     Neuron(int number_of_inputs) {
-      input_size = number_of_inputs + 1;
+      input_size = number_of_inputs;
       weights = new double[input_size];
       for (int i=0; i<input_size; i++) {
         weights[i] = ((double) rand() / (RAND_MAX));
@@ -23,6 +23,14 @@ class Neuron {
     
     ~Neuron() {
       delete [] weights;
+    }
+    
+    int get_size() {
+        return input_size;
+    }
+    
+    double get_net() {
+        return net;
     }
     
     double get_weight(int index) {

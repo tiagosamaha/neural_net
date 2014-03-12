@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "network.h"
 
@@ -15,4 +16,37 @@ MLP::MLP (int num_input, int num_hidden, int *hidden_neurons, int num_output) {
 	}
 	layers[num_hidden+1] = new Layer(num_output, hidden_neurons[num_hidden-1]);
 }
+ 
+void MLP::feedforward (int *input) {
+    for (int i=0; i<layers[0]->get_size(); i++) {
+        Neuron *current_neuron = layers[0]->get_neuron(i);
+        double sum = 0;
+        for (int j=0; j<current_neuron->get_size(); j++) {
+            sum += input[j] * current_neuron->get_weight(j);
+        }
+        current_neuron->set_net(sigmoid(sum));
+        cout << "camada 0: " << sigmoid(sum) << "\n";
+    }
     
+    for (int k=1; k<num_layers; k++) {
+        Layer *current_layer = layers[k];
+        Layer *previous_layer = layers[k-1];
+        for (int i=0; i<current_layer->get_size(); i++) {
+            Neuron *current_neuron = current_layer->get_neuron(i);
+            double sum = 0;
+            for (int j=0; j<current_neuron->get_size(); j++) {
+                sum += previous_layer->get_neuron(j)->get_net() * current_neuron->get_weight(j);
+            }
+            current_neuron->set_net(sigmoid(sum));
+            cout << "camada " << k << ": " << sigmoid(sum) << "\n";
+        }
+    }
+}
+
+double MLP::sigmoid(double activation) {
+    return 1 / (1 + exp(-activation));
+}
+
+double MLP::sigmoid_derivative(double activation) {
+    return sigmoid(activation) * (1 - sigmoid(activation));
+}

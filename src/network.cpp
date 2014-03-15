@@ -18,14 +18,16 @@ MLP::MLP (int num_input, int num_hidden, int *hidden_neurons, int num_output) {
 }
  
 void MLP::feedforward (int *input) {
+//    cout << "Fase FeedForward\n\n";
     for (int i=0; i<layers[0]->get_size(); i++) {
         Neuron *current_neuron = layers[0]->get_neuron(i);
         double sum = 0;
         for (int j=0; j<current_neuron->get_size(); j++) {
             sum += input[j] * current_neuron->get_weight(j);
         }
-        current_neuron->set_net(sigmoid(sum));
-        cout << "camada 0: " << sigmoid(sum) << "\n";
+        current_neuron->set_activation(sum);
+        current_neuron->set_output(sigmoid(sum));
+//        cout << "k 0 => " << "n " << i << " => " << sigmoid(sum) << "\n";
     }
     
     for (int k=1; k<num_layers; k++) {
@@ -35,10 +37,11 @@ void MLP::feedforward (int *input) {
             Neuron *current_neuron = current_layer->get_neuron(i);
             double sum = 0;
             for (int j=0; j<current_neuron->get_size(); j++) {
-                sum += previous_layer->get_neuron(j)->get_net() * current_neuron->get_weight(j);
+                sum += previous_layer->get_neuron(j)->get_output() * current_neuron->get_weight(j);
             }
-            current_neuron->set_net(sigmoid(sum));
-            cout << "camada " << k << ": " << sigmoid(sum) << "\n";
+            current_neuron->set_activation(sum);
+            current_neuron->set_output(sigmoid(sum));
+//            cout << "k " << k << " => " << "n " << i << " => " << sigmoid(sum) << "\n";
         }
     }
 }

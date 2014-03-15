@@ -7,6 +7,7 @@ class Neuron {
   private:
     int input_size;
     double *weights;
+    double bias; // bias weight
     double activation;
     double output;
 
@@ -19,6 +20,7 @@ class Neuron {
       for (int i=0; i<input_size; i++) {
         weights[i] = ((double) rand() / (RAND_MAX));
       }
+      bias = ((double) rand() / (RAND_MAX));
     }
     
     ~Neuron() {
@@ -31,6 +33,10 @@ class Neuron {
     
     double get_activation() {
         return activation;
+    }
+    
+    double get_bias() {
+        return bias;
     }
     
     double get_output() {

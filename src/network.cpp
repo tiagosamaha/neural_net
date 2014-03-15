@@ -25,9 +25,12 @@ void MLP::feedforward (int *input) {
         for (int j=0; j<current_neuron->get_size(); j++) {
             sum += input[j] * current_neuron->get_weight(j);
         }
+        sum += current_neuron->get_bias();
         current_neuron->set_activation(sum);
         current_neuron->set_output(sigmoid(sum));
-        cout << "layer 0 | " << "neuron " << i << " | y = " << sigmoid(sum) << "\n";
+        cout << "layer 0 | "
+             << "neuron " << i << " | y = "
+             << current_neuron->get_output() << "\n";
     }
     
     for (int k=1; k<num_layers; k++) {
@@ -39,9 +42,13 @@ void MLP::feedforward (int *input) {
             for (int j=0; j<current_neuron->get_size(); j++) {
                 sum += previous_layer->get_neuron(j)->get_output() * current_neuron->get_weight(j);
             }
+            sum += current_neuron->get_bias();
             current_neuron->set_activation(sum);
             current_neuron->set_output(sigmoid(sum));
-            cout << "layer " << k << " | " << "neuron " << i << " | y = " << sigmoid(sum) << "\n";
+            cout << "layer " << k
+                 << " | " << "neuron " << i
+                 << " | y = "
+                 << current_neuron->get_output() << "\n";
         }
     }
 }

@@ -18,7 +18,7 @@ MLP::MLP (int num_input, int num_hidden, int *hidden_neurons, int num_output) {
 }
  
 void MLP::feedforward (int *input) {
-//    cout << "Fase FeedForward\n\n";
+    cout << "Fase FeedForward\n\n";
     for (int i=0; i<layers[0]->get_size(); i++) {
         Neuron *current_neuron = layers[0]->get_neuron(i);
         double sum = 0;
@@ -27,7 +27,7 @@ void MLP::feedforward (int *input) {
         }
         current_neuron->set_activation(sum);
         current_neuron->set_output(sigmoid(sum));
-//        cout << "k 0 => " << "n " << i << " => " << sigmoid(sum) << "\n";
+        cout << "layer 0 | " << "neuron " << i << " | y = " << sigmoid(sum) << "\n";
     }
     
     for (int k=1; k<num_layers; k++) {
@@ -41,7 +41,7 @@ void MLP::feedforward (int *input) {
             }
             current_neuron->set_activation(sum);
             current_neuron->set_output(sigmoid(sum));
-//            cout << "k " << k << " => " << "n " << i << " => " << sigmoid(sum) << "\n";
+            cout << "layer " << k << " | " << "neuron " << i << " | y = " << sigmoid(sum) << "\n";
         }
     }
 }

@@ -5,17 +5,25 @@
 
 using namespace std;
 
+void process_xor() {
+    int input[2], desired;
+    int hidden_neurons[] = {1};
+    
+    MLP nn(2, 1, hidden_neurons, 2);
+
+    for (int i=0; i<2; i++) {
+        input[0] = (rand() % 2 == 1) ? 1.0 : 0.0;
+        input[1] = (rand() % 2 == 1) ? 1.0 : 0.0;
+        desired = (input[0] != input[1]) ? 1.0 : 0.0;
+        
+        nn.feedforward(input);
+    }
+}
+
 int main() {
     srand((unsigned)time(NULL));
     
-    int input[] = {1,1};
-    int num_input = 2;
-    int num_hidden = 1;
-    int hidden_neurons[] = {1};
-    int num_output = 2;
-     
-    MLP *nn = new MLP(num_input, num_hidden, hidden_neurons, num_output);
-    nn->feedforward(input);
+    process_xor(); 
     
     return 0;
 }

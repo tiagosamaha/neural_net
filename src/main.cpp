@@ -17,6 +17,7 @@ void process_xor() {
         desired = (input[0] != input[1]) ? 1.0 : 0.0;
         
         nn.feedforward(input);
+        nn.backpropagate(desired);
     }
 }
 

@@ -29,11 +29,11 @@ class Neuron {
         }
 
         void update_weight(int index, double value) {
-            weights[index] += value;
+            weights[index] -= value;
         }
 
         void update_bias(double value) {
-            bias += value;
+            bias -= value;
         }
 
         int get_size() {
@@ -74,7 +74,8 @@ class Neuron {
         
         void show_weights() {
             for (int i=0; i<input_size; i++)
-                cout << weights[i] << "\n";
+                cout << weights[i] << " ";
+            cout << "\n";
         }
 };
 

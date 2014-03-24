@@ -1,10 +1,5 @@
-#include <iostream>
-#include <cmath>
-
 #include "network.h"
 
-using namespace std;
-        
 MLP::MLP (int num_input, int num_hidden, int *hidden_neurons, int num_output) {
     rate = 0.1; // learning rate
     num_layers = num_hidden + 2;
